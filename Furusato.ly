@@ -1,23 +1,40 @@
 % !TEX TS-program = myLilyPond
 \version "2.26.0"
 
-
 \paper {
   indent = 0\mm
   markup-system-spacing.basic-distance = #10
 %  score-markup-spacing.basic-distance = #16
   system-system-spacing.basic-distance = #20
   property-defaults.fonts.serif = "游教科書体" %"ヒラギノ角ゴシック" % "しっぽり明朝" 
+  property-defaults.fonts.sans = "游教科書体"
+  bookTitleMarkup = \markup {
+    \column {
+      % 元々のタイトルやサブタイトルなどを表示（これらは省略不可）
+      \fill-line { \fromproperty #'header:title }
+      \fill-line { \fromproperty #'header:subtitle }
+      
+      % 作詞・作曲の配置エリア
+      \fill-line {
+        "" % 左側を空っぽにする
+        \column { % 右側に縦並びのボックスを作る
+          \right-align \fontsize #-1 \sans \fromproperty #'header:poet
+          \right-align \fontsize #-1 \sans \fromproperty #'header:composer
+        }
+      }
+    }
+  }
+
 }
 
 
 \header {
   title    = \markup {
-    \fontsize #2 % 文字の大きさ
+    \fontsize #4 % 文字の大きさ
     "ふるさと"
   }
-%  composer = "岡野 貞一"
-%  poet = ""
+  composer = "作曲：岡野 貞一"
+  poet = "作詞：高野 辰之"
   tagline  = ""  % タグラインを消すには空文字にするよ
 }
 
